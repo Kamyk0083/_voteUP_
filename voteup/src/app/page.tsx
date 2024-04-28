@@ -1,12 +1,25 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function Home() {
-  // const [name, setName] = useState("");
-  // const [age, setAge] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
 
-  // const addUser = async (e) => {
-  //   const user = { name, age };
-  // };
+  const handleSubmit = async () => {
+    const response = await fetch("/api/test/route", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, age: Number(age) }),
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      alert("Osoba została dodana");
+    } else {
+      alert("Wystąpił błąd podczas dodawania osoby");
+    }
+  };
 
   return (
     <div className="main-container">
@@ -18,11 +31,17 @@ export default function Home() {
       </header>
       <input
         type="text"
-        placeholder="Enter name "
-        // onChange={(e) => setName(e.target.value)}
+        placeholder="Enter name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-      <input type="text" placeholder="Enter age " />
-      {/* <button onClick={}>Dodaj</button> */}
+      <input
+        type="text"
+        placeholder="Enter age"
+        value={age}
+        onChange={(e) => setAge(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Dodaj</button>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
-const User = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   name: String,
   age: Number,
 });
 
-export default mongoose.models.User || mongoose.model("User", User);
+const user = mongoose.model("user", UserSchema);
+
+module.exports = user;
