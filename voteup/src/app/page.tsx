@@ -5,6 +5,7 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import { error } from "console";
 
 export default function Home() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -21,6 +22,7 @@ export default function Home() {
       });
     } catch (error) {
       console.error(error);
+      console.log("Nie udało się oddać głosu");
     }
   };
 
