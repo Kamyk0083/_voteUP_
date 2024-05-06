@@ -15,7 +15,7 @@ export default function SignIn() {
           </button>
         </div>
       </header>
-      <div className="flex justify-center m-9">
+      <div className="flex justify-center m-9 ">
         <SignUp path="/sign-up" />
       </div>
     </div>

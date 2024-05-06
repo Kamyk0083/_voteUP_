@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connect from "../../../../db";
-import User from "./../../../../User";
+import User from "../../../../Vote";
 
 export async function POST(request: Request) {
   await connect();
