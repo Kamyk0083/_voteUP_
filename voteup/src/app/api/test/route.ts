@@ -1,14 +1,12 @@
 import { NextResponse } from "next/server";
 import connect from "../../../../db";
 import User from "./../../../../User";
-import type { NextApiRequest } from "next";
 
-export async function POST(request: NextApiRequest) {
+export async function POST(request: Request) {
   await connect();
-
-  const { name, age } = request.body;
+  const { name, age } = await request.json();
   const person = new User({ name, age });
   await person.save();
-  console.log("Dodano osobę");
-  return NextResponse.json({ succes: true });
+  console.log("Dodano osobę", name, age);
+  return NextResponse.json({ success: true });
 }
