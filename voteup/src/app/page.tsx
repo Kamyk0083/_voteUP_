@@ -1,17 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { error } from "console";
 
+interface Vote {
+  email: string;
+}
+
 export default function Home() {
   const { isLoaded, isSignedIn, user } = useUser();
   const name = user?.firstName;
   const email = user?.primaryEmailAddress?.emailAddress;
   const vote = "Nazwa Gry";
+  const [votes, setVotes] = useState([]);
+  const [hasVoted, setHasVoted] = useState(false);
 
   const handleVote = async () => {
     try {
@@ -20,11 +26,29 @@ export default function Home() {
         email,
         vote,
       });
+      setHasVoted(true);
     } catch (error) {
       console.error(error);
       console.log("Nie udało się oddać głosu");
     }
   };
+
+  useEffect(() => {
+    const fetchVotes = async () => {
+      try {
+        const response = await axios.get("/api/get-vote");
+        setVotes(response.data.votes);
+        const voted = response.data.votes.some(
+          (vote: Vote) => vote.email === email
+        );
+        setHasVoted(voted);
+      } catch (error) {
+        console.error("Nie udało się pobrać danych o głosach", error);
+      }
+    };
+
+    fetchVotes();
+  }, [email]);
 
   if (!isSignedIn) {
     return (
@@ -97,10 +121,15 @@ export default function Home() {
               <p className="text-gray-500">Data premiery</p>
             </div>
             <button
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4 mx-auto block"
+              className={`${
+                hasVoted
+                  ? "bg-gray-700 hover:bg-gray-800"
+                  : "bg-green-500 hover:bg-green-600"
+              } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block`}
               onClick={handleVote}
+              disabled={hasVoted}
             >
-              Załosuj na tą gre
+              {hasVoted ? "Już oddałeś głos" : "Załosuj na tą gre"}
             </button>
           </div>
         </main>
