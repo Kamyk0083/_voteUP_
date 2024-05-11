@@ -1,14 +1,13 @@
 import Admin from "../../../../Admin";
-import { Request } from "express";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import connect from "../../../../db";
-import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   console.log("Otrzymane dane:", request.body);
 
   await connect();
-  const credentials = await (request as any).json();
+  const credentials = await request.json();
   const { username, password } = credentials;
 
   console.log("Dane logowania:", username, password);
