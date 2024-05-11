@@ -9,7 +9,7 @@ interface CustomJwtPayload extends JwtPayload {
   admin?: boolean;
 }
 
-export default function adminLogin() {
+export default function AdminLogin() {
   const [username, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,7 +31,7 @@ export default function adminLogin() {
     }
   }, []);
 
-  const AdminLogin = async () => {
+  const adminLogin = async () => {
     if (username && password) {
       const credentials = { username, password };
       const config = {
@@ -68,7 +68,7 @@ export default function adminLogin() {
           className="mb-3 px-4 py-2 border rounded-lg w-full text-black"
         />
         <button
-          onClick={() => AdminLogin()}
+          onClick={adminLogin}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full"
         >
           Zaloguj
