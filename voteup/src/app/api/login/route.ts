@@ -1,9 +1,9 @@
 import Admin from "../../../../Admin";
-import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import connect from "../../../../db";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextApiRequest, response: NextApiResponse) {
   console.log("Otrzymane dane:", request.body);
 
   await connect();
@@ -25,19 +25,19 @@ export async function POST(request: NextRequest) {
           "voteup"
         );
         console.log("Wygenerowany token:", token);
-        return NextResponse.json({ success: true, token });
+        return response.json({ success: true, token });
       } else {
         console.log("Nie jesteś adminem");
-        return NextResponse.json({
+        return response.json({
           success: false,
           message: "Nie jesteś adminem",
         });
       }
     }
 
-    return NextResponse.json({ success: false });
+    return response.json({ success: false });
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ success: false });
+    return response.json({ success: false });
   }
 }
