@@ -26,7 +26,7 @@ interface Game {
 
 export default function Home() {
   const { isSignedIn, user } = useUser();
-  const name = user?.firstName;
+  const name = user?.firstName || user?.username || "Użytkownik";
   const email = user?.primaryEmailAddress?.emailAddress;
   const [votes, setVotes] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
