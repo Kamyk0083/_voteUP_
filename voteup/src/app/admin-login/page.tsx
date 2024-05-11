@@ -31,7 +31,7 @@ export default function adminLogin() {
     }
   }, []);
 
-  const adminLogin = async () => {
+  const AdminLogin = async () => {
     if (username && password) {
       const credentials = { username, password };
       const config = {
@@ -68,7 +68,7 @@ export default function adminLogin() {
           className="mb-3 px-4 py-2 border rounded-lg w-full text-black"
         />
         <button
-          onClick={() => adminLogin()}
+          onClick={() => AdminLogin()}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full"
         >
           Zaloguj
