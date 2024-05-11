@@ -1,13 +1,14 @@
 import Admin from "../../../../Admin";
-import { NextApiRequest, NextApiResponse } from "next";
+import { Request } from "express";
 import jwt from "jsonwebtoken";
 import connect from "../../../../db";
+import { NextResponse } from "next/server";
 
-export async function POST(request: NextApiRequest, response: NextApiResponse) {
+export async function POST(request: Request) {
   console.log("Otrzymane dane:", request.body);
 
   await connect();
-  const credentials = await request.json();
+  const credentials = await (request as any).json();
   const { username, password } = credentials;
 
   console.log("Dane logowania:", username, password);
@@ -25,19 +26,19 @@ export async function POST(request: NextApiRequest, response: NextApiResponse) {
           "voteup"
         );
         console.log("Wygenerowany token:", token);
-        return response.json({ success: true, token });
+        return NextResponse.json({ success: true, token });
       } else {
         console.log("Nie jesteś adminem");
-        return response.json({
+        return NextResponse.json({
           success: false,
           message: "Nie jesteś adminem",
         });
       }
     }
 
-    return response.json({ success: false });
+    return NextResponse.json({ success: false });
   } catch (error) {
     console.log(error);
-    return response.json({ success: false });
+    return NextResponse.json({ success: false });
   }
 }
