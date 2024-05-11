@@ -1,15 +1,11 @@
-import Admin from "../../../../Admin";
-import { Request } from "express";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import connect from "../../../../db";
-import { NextResponse } from "next/server";
+import Admin from "../../../../Admin";
 
-export async function POST(request: Request) {
-  console.log("Otrzymane dane:", request.body);
-
-  await connect();
-  const credentials = await (request as any).json();
-  const { username, password } = credentials;
+export async function POST(request: NextRequest, response: NextResponse) {
+  const data = await request.json();
+  const { username, password } = data;
 
   console.log("Dane logowania:", username, password);
 
@@ -26,19 +22,18 @@ export async function POST(request: Request) {
           "voteup"
         );
         console.log("Wygenerowany token:", token);
-        return NextResponse.json({ success: true, token });
+        return new NextResponse(JSON.stringify({ success: true, token }));
       } else {
         console.log("Nie jesteś adminem");
-        return NextResponse.json({
-          success: false,
-          message: "Nie jesteś adminem",
-        });
+        return new NextResponse(
+          JSON.stringify({ success: false, message: "Nie jesteś adminem" })
+        );
       }
     }
 
-    return NextResponse.json({ success: false });
+    return new NextResponse(JSON.stringify({ success: false }));
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ success: false });
+    return new NextResponse(JSON.stringify({ success: false }));
   }
 }
