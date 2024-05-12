@@ -2,6 +2,7 @@ import connect from "../../../../db";
 import Game from "../../../../Game";
 import { NextResponse } from "next/server";
 
+export const revalidate = 1;
 export async function POST(request: Request) {
   await connect();
   const requestBody = await request.text();

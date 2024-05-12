@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import connect from "../../../../db";
 import Admin from "../../../../Admin";
 
+export const revalidate = 1;
 export async function POST(request: NextRequest, response: NextResponse) {
   await connect();
   const data = await request.json();

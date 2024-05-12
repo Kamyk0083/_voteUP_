@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connect from "../../../../db";
 import Vote from "../../../../Vote";
 
+export const revalidate = 1;
 export async function POST(request: Request) {
   await connect();
   const { name, email, vote } = await request.json();
