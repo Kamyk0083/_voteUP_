@@ -4,6 +4,7 @@ import connect from "../../../../db";
 import Admin from "../../../../Admin";
 
 export async function POST(request: NextRequest, response: NextResponse) {
+  await connect();
   const data = await request.json();
   const { username, password } = data;
 
