@@ -31,7 +31,9 @@ export default function Game() {
         >
           <img className="w-full" src={game.baner} alt={game.nazwa} />
           <div className="p-4 sm:p-8">
-            <h2 className="text-xl sm:text-2xl font-bold">{game.nazwa}</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
+              {game.nazwa}
+            </h2>
             <p className="text-sm sm:text-base text-gray-500">{game.opis}</p>
             <Link
               href={game.strona}
