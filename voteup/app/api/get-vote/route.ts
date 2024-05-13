@@ -1,5 +1,5 @@
-import Vote from "../../../../Vote";
-import connect from "../../../../db";
+import Vote from "../../../db/schema/Vote";
+import connect from "../../../db/db";
 import { NextResponse } from "next/server";
 
 export const revalidate = 1;

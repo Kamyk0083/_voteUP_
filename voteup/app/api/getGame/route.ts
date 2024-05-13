@@ -1,5 +1,5 @@
-import Game from "../../../../Game";
-import connect from "../../../../db";
+import Game from "../../../db/schema/Game";
+import connect from "../../../db/db";
 import { NextResponse } from "next/server";
 
 export const revalidate = 1;
