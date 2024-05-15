@@ -27,12 +27,12 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-gray-800 text-white py-2 sm:py-4 px-3 sm:px-6 flex flex-wrap sm:flex-nowrap justify-between items-center">
+    <header className="bg-gray-800 text-white py-2 sm:py-4 px-3 sm:px-6 flex flex-wrap justify-center sm:justify-between items-center">
       <div className="flex items-center font-bold uppercase">
         <p className="text-sm sm:text-lg">vote</p>
         <p className="text-green-500 text-xl sm:text-2xl ml-1">UP</p>
       </div>
-      <p className="text-sm sm:text-base text-white my-2 sm:my-0">
+      <p className="text-sm sm:text-base text-white my-2 sm:my-0 flex-1 text-center sm:text-center">
         Witaj, {user?.firstName} na aplikacja do głosowania
       </p>
       <div className="flex items-center">
