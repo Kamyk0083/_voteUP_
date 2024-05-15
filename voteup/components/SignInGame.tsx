@@ -10,6 +10,8 @@ export default function Game() {
   const [votes, setVotes] = useState([]);
   const [vote, setVote] = useState("");
   const email = user?.primaryEmailAddress?.emailAddress;
+  const name =
+    user?.firstName || user?.lastName || user?.username || "Użytkownik";
 
   interface Game {
     nazwa: string;
@@ -67,28 +69,28 @@ export default function Game() {
       {games.map((game) => (
         <div
           key={game.nazwa}
-          className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-6 my-8 bg-white rounded-xl shadow-lg overflow-hidden"
+          className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-3 my-4 bg-white rounded-xl shadow-lg overflow-hidden"
         >
-          <img className="w-full mx-auto" src={game.baner} alt={game.nazwa} />
+          <img className="w-full" src={game.baner} alt={game.nazwa} />
           <div className="p-4 sm:p-8">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
               {game.nazwa}
             </h2>
-            <p className="text-sm sm:text-base text-gray-500">
+            <p className="text-sm sm:text-base text-gray-500 mt-2">
               Opis: {game.opis}
             </p>
             <Link
               href={game.strona}
-              className="text-blue-500 hover:text-blue-700"
+              className="text-blue-500 hover:text-blue-700 block mt-2"
               target="_blank"
               rel="noopener noreferrer"
             >
               Strona gry
             </Link>
-            <p className="text-sm sm:text-base text-gray-500">
+            <p className="text-sm sm:text-base text-gray-500 mt-2">
               Typ: {game.typ}
             </p>
-            <p className="text-sm sm:text-base text-gray-500">
+            <p className="text-sm sm:text-base text-gray-500 mt-2">
               Data premiery: {new Date(game.data).toLocaleDateString()}
             </p>
             <button

@@ -24,22 +24,22 @@ export default function Header() {
 
   return (
     <header className="bg-gray-800 text-white py-2 sm:py-4 px-3 sm:px-6 flex justify-between items-center">
-      <div className="flex font-bold uppercase items-center">
+      <div className="flex items-center font-bold uppercase">
         <p className="text-sm sm:text-lg">vote</p>
-        <p className="text-green-500 text-xl sm:text-2xl">UP</p>
+        <p className="text-green-500 text-xl sm:text-2xl ml-1">UP</p>
       </div>
-      <div>
+      <div className="flex items-center">
         <Link
           href={"/sign-in"}
           className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 sm:py-2 px-3 sm:px-4 rounded mr-2"
         >
-          Sign In
+          Zaloguj
         </Link>
         <Link
           href={"/sign-up"}
           className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 sm:py-2 px-3 sm:px-4 rounded"
         >
-          Sign Up
+          Zarejestruj
         </Link>
         {loggedInUser?.admin && (
           <Link
