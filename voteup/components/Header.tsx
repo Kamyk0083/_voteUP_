@@ -43,7 +43,7 @@ export default function Header() {
         </Link>
         {loggedInUser?.admin && (
           <Link
-            href={"/admin"}
+            href={"/company"}
             className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-1 sm:py-2 px-3 sm:px-4 rounded ml-2"
           >
             Admin

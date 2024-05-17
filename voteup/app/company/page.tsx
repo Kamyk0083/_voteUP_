@@ -10,7 +10,7 @@ interface CustomJwtPayload extends JwtPayload {
   admin?: boolean;
 }
 
-export default function Admin() {
+export default function Company() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [gameDescription, setGameDescription] = useState("");
   const [gameBanner, setGameBanner] = useState("");
@@ -29,7 +29,8 @@ export default function Admin() {
     }
   }, []);
 
-  const handleAddGame = async () => {
+  const handleAddGame = async (e: FormEvent) => {
+    e.preventDefault();
     try {
       await axios.post("/api/addGame", {
         nazwa: gameName,
@@ -62,7 +63,7 @@ export default function Admin() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <p className="text-lg font-semibold mb-4 text-green-600">Panel Admina</p>
+      <p className="text-lg font-semibold mb-4 text-green-600">Panel Firmy</p>
       <form
         className="space-y-4 w-full max-w-lg p-5 bg-white shadow-lg rounded-lg"
         onSubmit={handleAddGame}

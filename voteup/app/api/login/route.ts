@@ -1,25 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import connect from "../../../db/db";
-import Admin from "../../../db/schema/Admin";
+import Firma from "../../../db/schema/Firma";
 
 export const revalidate = 1;
 export async function POST(request: NextRequest, response: NextResponse) {
   await connect();
   const data = await request.json();
-  const { username, password } = data;
+  const { email, password } = data;
 
-  console.log("Dane logowania:", username, password);
+  console.log("Dane logowania:", email, password);
 
   try {
-    const admin = await Admin.findOne({ username: username });
-    console.log("Admin znaleziony:", admin);
-    if (admin && admin.password === password) {
-      if (admin.admin) {
+    const firma = await Firma.findOne({ email: email });
+    console.log("Firma znaleziona:", firma);
+    if (firma && firma.haslo === password) {
+      if (firma.admin) {
         const token = jwt.sign(
           {
-            username: admin.username,
-            admin: admin.admin,
+            email: firma.email,
+            admin: firma.admin,
           },
           "voteup"
         );
