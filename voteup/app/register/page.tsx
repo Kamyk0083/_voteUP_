@@ -34,8 +34,8 @@ export default function Register() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-700">
-      <header className="mb-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <header className="mb-6" text-gray-700>
         <h1 className="text-2xl font-bold">
           Witaj na stronie rejestracji firmi. Proszę wypełnić formularz
         </h1>
