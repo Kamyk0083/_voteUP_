@@ -18,6 +18,7 @@ export default function Company() {
   const [gameType, setGameType] = useState("");
   const [gameReleaseDate, setGameReleaseDate] = useState("");
   const [gameName, setGameName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,6 +32,7 @@ export default function Company() {
 
   const handleAddGame = async (e: FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       await axios.post("/api/addGame", {
         nazwa: gameName,
@@ -40,8 +42,10 @@ export default function Company() {
         typ: gameType,
         data: gameReleaseDate,
       });
+      window.location.reload();
     } catch (error) {
       console.error(error);
+      setIsSubmitting(false);
     }
   };
 
@@ -118,6 +122,7 @@ export default function Company() {
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+          disabled={isSubmitting}
         >
           Dodaj grę
         </button>
