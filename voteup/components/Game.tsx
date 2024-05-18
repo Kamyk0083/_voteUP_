@@ -24,6 +24,17 @@ export default function Game() {
   }, []);
   return (
     <main className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center m-8 bg-gradient-to-r bg-gray-800 text-white p-4 rounded-lg shadow-xl">
+        Festiwal CEGEF ma na celu zapewnienie edukacji, rozrywki i możliwości
+        rozwoju gospodarczego. Uczestnicy mogą poznać ścieżki rozwoju zawodowego
+        w kreatywnych branżach, z ekspertami z dziedziny multimediów,
+        projektowania, reżyserii dźwięku i zarządzania umiejętnościami miękkimi.
+        Więcej informacji można znaleźć na stronie
+        <a className="ml-1 flex text-blue-400" href="https://cegef.pl">
+          CEGEF
+        </a>
+        .
+      </div>
       {games.map((game) => (
         <div
           key={game.nazwa}

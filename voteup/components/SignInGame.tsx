@@ -66,47 +66,60 @@ export default function Game() {
 
   return (
     <main className="flex flex-wrap justify-center">
-      {games.map((game) => (
-        <div
-          key={game.nazwa}
-          className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-3 my-4 bg-white rounded-xl shadow-lg overflow-hidden"
-        >
-          <img className="w-full" src={game.baner} alt={game.nazwa} />
-          <div className="p-4 sm:p-8">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
-              {game.nazwa}
-            </h2>
-            <p className="text-sm sm:text-base text-gray-500 mt-2">
-              Opis: {game.opis}
-            </p>
-            <Link
-              href={game.strona}
-              className="text-blue-500 hover:text-blue-700 block mt-2"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Strona gry
-            </Link>
-            <p className="text-sm sm:text-base text-gray-500 mt-2">
-              Typ: {game.typ}
-            </p>
-            <p className="text-sm sm:text-base text-gray-500 mt-2">
-              Data premiery: {new Date(game.data).toLocaleDateString()}
-            </p>
-            <button
-              className={`${
-                hasVoted
-                  ? "bg-gray-700 hover:bg-gray-800"
-                  : "bg-green-500 hover:bg-green-600"
-              } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block`}
-              onClick={() => handleVote(game.nazwa)}
-              disabled={hasVoted}
-            >
-              {hasVoted ? "Już oddałeś głos" : "Załosuj na tą gre"}
-            </button>
-          </div>
+      <div className="flex flex-wrap justify-center m-8 bg-gradient-to-r bg-gray-800 text-white p-4 rounded-lg shadow-xl">
+        Festiwal CEGEF ma na celu zapewnienie edukacji, rozrywki i możliwości
+        rozwoju gospodarczego. Uczestnicy mogą poznać ścieżki rozwoju zawodowego
+        w kreatywnych branżach, z ekspertami z dziedziny multimediów,
+        projektowania, reżyserii dźwięku i zarządzania umiejętnościami miękkimi.
+        Więcej informacji można znaleźć na stronie
+        <a className="ml-1 flex text-blue-400" href="https://cegef.pl">
+          CEGEF
+        </a>
+        .
         </div>
-      ))}
+        {games.map((game) => (
+          <div
+            key={game.nazwa}
+            className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-3 my-4 bg-white rounded-xl shadow-lg overflow-hidden"
+          >
+            <img className="w-full" src={game.baner} alt={game.nazwa} />
+            <div className="p-4 sm:p-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
+                {game.nazwa}
+              </h2>
+              <p className="text-sm sm:text-base text-gray-500 mt-2">
+                Opis: {game.opis}
+              </p>
+              <Link
+                href={game.strona}
+                className="text-blue-500 hover:text-blue-700 block mt-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Strona gry
+              </Link>
+              <p className="text-sm sm:text-base text-gray-500 mt-2">
+                Typ: {game.typ}
+              </p>
+              <p className="text-sm sm:text-base text-gray-500 mt-2">
+                Data premiery: {new Date(game.data).toLocaleDateString()}
+              </p>
+              <button
+                className={`${
+                  hasVoted
+                    ? "bg-gray-700 hover:bg-gray-800"
+                    : "bg-green-500 hover:bg-green-600"
+                } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block m-4`}
+                onClick={() => handleVote(game.nazwa)}
+                disabled={hasVoted}
+              >
+                {hasVoted ? "Już oddałeś głos" : "Załosuj na tą gre"}
+              </button>
+            </div>
+          </div>
+        ))}
     </main>
   );
 }
+
+
