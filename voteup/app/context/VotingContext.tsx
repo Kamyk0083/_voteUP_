@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface VotingContextType {
   votingEnded: boolean;
@@ -7,7 +7,7 @@ interface VotingContextType {
 
 const VotingContext = createContext<VotingContextType | undefined>(undefined);
 
-export const VotingProvider: React.FC<{children: ReactNode}> = ({ children }) => {
+export const VotingProvider = ({ children }: { children: ReactNode }) => {
   const [votingEnded, setVotingEnded] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ export const VotingProvider: React.FC<{children: ReactNode}> = ({ children }) =>
 export const useVoting = () => {
   const context = useContext(VotingContext);
   if (!context) {
-    throw new Error('useVoting must be used within a VotingProvider');
+    throw new Error("useVoting must be used within a VotingProvider");
   }
   return context;
 };

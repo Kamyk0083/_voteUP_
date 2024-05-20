@@ -5,7 +5,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { JwtPayload } from "jsonwebtoken";
 import Link from "next/link";
-import { useVoting } from '../context/VotingContext';
+import { useVoting } from "./../context/VotingContext";
 
 interface CustomJwtPayload extends JwtPayload {
   admin?: boolean;
@@ -15,7 +15,7 @@ const Admin = () => {
   const { setVotingEnded } = useVoting();
 
   const endVoting = async () => {
-    await axios.post('/api/end-voting');
+    await axios.post("/api/end-voting");
     setVotingEnded(true);
   };
 
@@ -33,7 +33,6 @@ const Admin = () => {
   }, []);
 
   if (!isAdmin) {
-
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <p className="text-lg font-semibold mb-4 text-red-600">
@@ -60,6 +59,6 @@ const Admin = () => {
       </button>
     </div>
   );
-}
+};
 
 export default Admin;
