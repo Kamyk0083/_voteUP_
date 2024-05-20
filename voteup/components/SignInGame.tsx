@@ -7,7 +7,7 @@ export default function Game() {
   const { user } = useUser();
   const [games, setGames] = useState<Game[]>([]);
   const [hasVoted, setHasVoted] = useState(false);
-  const [votes, setVotes] = useState([]);
+  const [votes, setVotes] = useState<Record<string, number>>({});
   const [vote, setVote] = useState("");
   const [votingEnded, setVotingEnded] = useState(false);
   const email = user?.primaryEmailAddress?.emailAddress;
@@ -38,10 +38,14 @@ export default function Game() {
     const fetchVotes = async () => {
       try {
         const response = await axios.get("/api/get-vote");
-        setVotes(response.data.votes);
-        const voted = response.data.votes.some(
-          (vote: Vote) => vote.email === email
-        );
+        const votesArray = response.data.votes;
+        const votesObject: Record<string, number> = {};
+        votesArray.forEach((vote: { game: string; count: number }) => {
+          votesObject[vote.game] = vote.count;
+        });
+        setVotes(votesObject);
+
+        const voted = votesArray.some((vote: Vote) => vote.email === email);
         setHasVoted(voted);
       } catch (error) {
         console.error("Nie udało się pobrać danych o głosach", error);
@@ -54,8 +58,12 @@ export default function Game() {
   useEffect(() => {
     if (votingEnded) {
       const fetchVoteCounts = async () => {
-        const response = await axios.get('/api/vote-counts');
-        setVotes(response.data);
+        const response = await axios.get("/api/vote-counts");
+        const votesObject: Record<string, number> = {};
+        response.data.forEach((vote: { game: string; count: number }) => {
+          votesObject[vote.game] = vote.count;
+        });
+        setVotes(votesObject);
       };
       fetchVoteCounts();
     }
@@ -77,14 +85,14 @@ export default function Game() {
 
   return (
     <main className="flex flex-col flex-wrap">
-    <div className="flex items-center flex-col justify-center m-8 bg-gradient-to-r bg-gray-800 text-white p-4 rounded-lg shadow-xl text-center">
-      Festiwal CEGEF ma na celu zapewnienie edukacji, rozrywki i możliwości
-      rozwoju gospodarczego. Uczestnicy mogą poznać ścieżki rozwoju zawodowego
-      w kreatywnych branżach, z ekspertami z dziedziny multimediów,
-      projektowania, reżyserii dźwięku i zarządzania umiejętnościami miękkimi.
-      Więcej informacji można znaleźć na stronie cegef.pl
-    </div>
-    <div className="flex flex-wrap justify-center">
+      <div className="flex items-center flex-col justify-center m-8 bg-gradient-to-r bg-gray-800 text-white p-4 rounded-lg shadow-xl text-center">
+        Festiwal CEGEF ma na celu zapewnienie edukacji, rozrywki i możliwości
+        rozwoju gospodarczego. Uczestnicy mogą poznać ścieżki rozwoju zawodowego
+        w kreatywnych branżach, z ekspertami z dziedziny multimediów,
+        projektowania, reżyserii dźwięku i zarządzania umiejętnościami miękkimi.
+        Więcej informacji można znaleźć na stronie cegef.pl
+      </div>
+      <div className="flex flex-wrap justify-center">
         {games.map((game) => (
           <div
             key={game.nazwa}
@@ -121,15 +129,16 @@ export default function Game() {
                 onClick={() => handleVote(game.nazwa)}
                 disabled={hasVoted && !votingEnded}
               >
-                {hasVoted && !votingEnded ? "Już oddałeś głos" : votingEnded ? `Głosy: ${votes[game.nazwa] || 0}` : "Załosuj na tą gre"}
+                {hasVoted && !votingEnded
+                  ? "Już oddałeś głos"
+                  : votingEnded
+                  ? `Głosy: ${votes[game.nazwa] || 0}`
+                  : "Załosuj na tą grę"}
               </button>
             </div>
           </div>
         ))}
-        </div>
+      </div>
     </main>
   );
 }
-
-
-
