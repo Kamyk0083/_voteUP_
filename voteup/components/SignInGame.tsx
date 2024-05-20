@@ -9,6 +9,7 @@ export default function Game() {
   const [hasVoted, setHasVoted] = useState(false);
   const [votes, setVotes] = useState([]);
   const [vote, setVote] = useState("");
+  const [votingEnded, setVotingEnded] = useState(false);
   const email = user?.primaryEmailAddress?.emailAddress;
   const name =
     user?.firstName || user?.lastName || user?.username || "Użytkownik";
@@ -50,6 +51,16 @@ export default function Game() {
     fetchVotes();
   }, [email]);
 
+  useEffect(() => {
+    if (votingEnded) {
+      const fetchVoteCounts = async () => {
+        const response = await axios.get('/api/vote-counts');
+        setVotes(response.data);
+      };
+      fetchVoteCounts();
+    }
+  }, [votingEnded]);
+
   const handleVote = async (gameName: string) => {
     setVote(gameName);
     try {
@@ -65,18 +76,15 @@ export default function Game() {
   };
 
   return (
-    <main className="flex flex-wrap justify-center">
-      <div className="flex flex-wrap justify-center m-8 bg-gradient-to-r bg-gray-800 text-white p-4 rounded-lg shadow-xl">
-        Festiwal CEGEF ma na celu zapewnienie edukacji, rozrywki i możliwości
-        rozwoju gospodarczego. Uczestnicy mogą poznać ścieżki rozwoju zawodowego
-        w kreatywnych branżach, z ekspertami z dziedziny multimediów,
-        projektowania, reżyserii dźwięku i zarządzania umiejętnościami miękkimi.
-        Więcej informacji można znaleźć na stronie
-        <a className="ml-1 flex text-blue-400" href="https://cegef.pl">
-          CEGEF
-        </a>
-        .
-        </div>
+    <main className="flex flex-col flex-wrap">
+    <div className="flex items-center flex-col justify-center m-8 bg-gradient-to-r bg-gray-800 text-white p-4 rounded-lg shadow-xl text-center">
+      Festiwal CEGEF ma na celu zapewnienie edukacji, rozrywki i możliwości
+      rozwoju gospodarczego. Uczestnicy mogą poznać ścieżki rozwoju zawodowego
+      w kreatywnych branżach, z ekspertami z dziedziny multimediów,
+      projektowania, reżyserii dźwięku i zarządzania umiejętnościami miękkimi.
+      Więcej informacji można znaleźć na stronie cegef.pl
+    </div>
+    <div className="flex flex-wrap justify-center">
         {games.map((game) => (
           <div
             key={game.nazwa}
@@ -111,15 +119,17 @@ export default function Game() {
                     : "bg-green-500 hover:bg-green-600"
                 } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block m-4`}
                 onClick={() => handleVote(game.nazwa)}
-                disabled={hasVoted}
+                disabled={hasVoted && !votingEnded}
               >
-                {hasVoted ? "Już oddałeś głos" : "Załosuj na tą gre"}
+                {hasVoted && !votingEnded ? "Już oddałeś głos" : votingEnded ? `Głosy: ${votes[game.nazwa] || 0}` : "Załosuj na tą gre"}
               </button>
             </div>
           </div>
         ))}
+        </div>
     </main>
   );
 }
+
 
 
