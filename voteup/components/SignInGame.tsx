@@ -9,7 +9,6 @@ export default function Game() {
   const [hasVoted, setHasVoted] = useState(false);
   const [votes, setVotes] = useState<Record<string, number>>({});
   const [vote, setVote] = useState("");
-  const [votingEnded, setVotingEnded] = useState(false);
   const email = user?.primaryEmailAddress?.emailAddress;
   const name =
     user?.firstName || user?.lastName || user?.username || "Użytkownik";
@@ -54,20 +53,6 @@ export default function Game() {
 
     fetchVotes();
   }, [email]);
-
-  useEffect(() => {
-    if (votingEnded) {
-      const fetchVoteCounts = async () => {
-        const response = await axios.get("/api/vote-counts");
-        const votesObject: Record<string, number> = {};
-        response.data.forEach((vote: { game: string; count: number }) => {
-          votesObject[vote.game] = vote.count;
-        });
-        setVotes(votesObject);
-      };
-      fetchVoteCounts();
-    }
-  }, [votingEnded]);
 
   const handleVote = async (gameName: string) => {
     setVote(gameName);
@@ -127,13 +112,9 @@ export default function Game() {
                     : "bg-green-500 hover:bg-green-600"
                 } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block m-4`}
                 onClick={() => handleVote(game.nazwa)}
-                disabled={hasVoted && !votingEnded}
+                disabled={hasVoted}
               >
-                {hasVoted && !votingEnded
-                  ? "Już oddałeś głos"
-                  : votingEnded
-                  ? `Głosy: ${votes[game.nazwa] || 0}`
-                  : "Załosuj na tą grę"}
+                {hasVoted ? "Już oddałeś głos" : "Załosuj na tą grę"}
               </button>
             </div>
           </div>
