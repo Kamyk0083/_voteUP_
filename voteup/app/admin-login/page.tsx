@@ -9,12 +9,12 @@ interface CustomJwtPayload extends JwtPayload {
   admin?: boolean;
 }
 
-export default function adminLogin() {
-  const [username, setEmail] = useState("");
+export default function AdminLogin() {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +40,11 @@ export default function adminLogin() {
         },
       };
 
-      const response = await axios.post("/api/admin-login", credentials, config);
+      const response = await axios.post(
+        "/api/admin-login",
+        credentials,
+        config
+      );
       console.log("Server response:", response.data);
       const data = response.data;
 
