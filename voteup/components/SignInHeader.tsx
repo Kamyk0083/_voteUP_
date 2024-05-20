@@ -1,5 +1,3 @@
-"use client";
-
 import { UserButton } from "@clerk/nextjs";
 import { JwtPayload } from "jsonwebtoken";
 import { jwtDecode } from "jwt-decode";

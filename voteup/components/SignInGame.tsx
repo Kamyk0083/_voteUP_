@@ -69,8 +69,8 @@ export default function Game() {
   };
 
   return (
-    <main className="flex flex-col flex-wrap">
-      <div className="flex items-center flex-col justify-center m-8 bg-gradient-to-r bg-gray-800 text-white p-4 rounded-lg shadow-xl text-center">
+    <main className="flex flex-col items-center">
+      <div className="flex items-center flex-col justify-center m-8 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 text-white p-4 rounded-lg shadow-xl text-center">
         Festiwal CEGEF ma na celu zapewnienie edukacji, rozrywki i możliwości
         rozwoju gospodarczego. Uczestnicy mogą poznać ścieżki rozwoju zawodowego
         w kreatywnych branżach, z ekspertami z dziedziny multimediów,
@@ -81,10 +81,10 @@ export default function Game() {
         {games.map((game) => (
           <div
             key={game.nazwa}
-            className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-3 my-4 bg-white rounded-xl shadow-lg overflow-hidden"
+            className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-3 my-4 bg-white rounded-xl shadow-lg overflow-hidden flex flex-col justify-between"
           >
             <img className="w-full" src={game.baner} alt={game.nazwa} />
-            <div className="p-4 sm:p-8">
+            <div className="p-4 sm:p-8 flex-grow">
               <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
                 {game.nazwa}
               </h2>
@@ -105,24 +105,24 @@ export default function Game() {
               <p className="text-sm sm:text-base text-gray-500 mt-2">
                 Data premiery: {new Date(game.data).toLocaleDateString()}
               </p>
-              <button
-                className={`${
-                  hasVoted
-                    ? "bg-gray-700 hover:bg-gray-800"
-                    : "bg-green-500 hover:bg-green-600"
-                } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block m-4`}
-                onClick={() => handleVote(game.nazwa)}
-                disabled={hasVoted}
-              >
-                {hasVoted ? (
-                  <Link href="/votes" className="text-white">
-                    Zobacz wyniki
-                  </Link>
-                ) : (
-                  "Załosuj na tą grę"
-                )}
-              </button>
             </div>
+            <button
+              className={`${
+                hasVoted
+                  ? "bg-gray-700 hover:bg-gray-800"
+                  : "bg-green-500 hover:bg-green-600"
+              } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block`}
+              onClick={() => handleVote(game.nazwa)}
+              disabled={hasVoted}
+            >
+              {hasVoted ? (
+                <Link href="/votes" className="text-white">
+                  Zobacz wyniki
+                </Link>
+              ) : (
+                "Załosuj na tą grę"
+              )}
+            </button>
           </div>
         ))}
       </div>
