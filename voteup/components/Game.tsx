@@ -17,8 +17,7 @@ export default function Game() {
   useEffect(() => {
     const fetchGames = async () => {
       const response = await axios.get("/api/getGame");
-      setGames(response.data.games);
-      console.log(response.data);
+      setGames(response.data.games); 
     };
     fetchGames();
   }, []);
