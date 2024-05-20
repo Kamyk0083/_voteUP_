@@ -41,6 +41,7 @@ export default function Company() {
         strona: gamePage,
         typ: gameType,
         data: gameReleaseDate,
+        votes: 0,
       });
       window.location.reload();
     } catch (error) {

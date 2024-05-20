@@ -12,9 +12,10 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
-  const { nazwa, opis, baner, strona, typ, data } = JSON.parse(requestBody);
-  const game = new Game({ nazwa, opis, baner, strona, typ, data, votes: 0 });
+  const { nazwa, opis, baner, strona, typ, data, votes } =
+    JSON.parse(requestBody);
+  const game = new Game({ nazwa, opis, baner, strona, typ, data, votes });
   await game.save();
-  console.log("dodano gre", opis, baner, strona, typ, data, );
+  console.log("dodano gre", opis, baner, strona, typ, data);
   return NextResponse.json({ message: "Gra została dodana!" });
 }
