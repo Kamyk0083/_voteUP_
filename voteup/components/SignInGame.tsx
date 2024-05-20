@@ -114,7 +114,13 @@ export default function Game() {
                 onClick={() => handleVote(game.nazwa)}
                 disabled={hasVoted}
               >
-                {hasVoted ? "Już oddałeś głos" : "Załosuj na tą grę"}
+                {hasVoted ? (
+                  <Link href="/votes" className="text-white">
+                    Zobacz wyniki
+                  </Link>
+                ) : (
+                  "Załosuj na tą grę"
+                )}
               </button>
             </div>
           </div>
