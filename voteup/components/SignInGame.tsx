@@ -63,6 +63,7 @@ export default function Game() {
         vote: gameName,
       });
       setHasVoted(true);
+      alert("Dziękujemy za oddanie głosu!");
     } catch (error) {
       console.error("Nie udało się oddać głosu", error);
     }
@@ -92,7 +93,7 @@ export default function Game() {
                 Opis: {game.opis}
               </p>
               <Link
-                href={game.strona}
+                href={`//${game.strona}`}
                 className="text-blue-500 hover:text-blue-700 block mt-2"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -111,7 +112,7 @@ export default function Game() {
                 hasVoted
                   ? "bg-gray-700 hover:bg-gray-800"
                   : "bg-green-500 hover:bg-green-600"
-              } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block`}
+              } text-white font-bold py-2 px-4 rounded mb-4 mx-auto block m-4`}
               onClick={() => handleVote(game.nazwa)}
               disabled={hasVoted}
             >

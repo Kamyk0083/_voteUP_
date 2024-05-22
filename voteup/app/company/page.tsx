@@ -43,6 +43,7 @@ export default function Company() {
         data: gameReleaseDate,
         votes: 0,
       });
+      alert("Pymyślnie dodano grę!");
       window.location.reload();
     } catch (error) {
       console.error(error);

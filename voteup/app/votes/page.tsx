@@ -46,12 +46,12 @@ export default function Game() {
                   : "bg-white"
               }`}
             >
-              <div className="flex justify-between items-center">
-                <div>
+              <div className="flex items-center">
+                <span className="text-xl font-bold">{index + 1}</span>
+                <div className="ml-4">
                   <h2 className="text-xl font-semibold">{game.nazwa}</h2>
                   <p className="text-sm">Liczba głosów: {game.votes}</p>
                 </div>
-                <span className="text-xl font-bold">{index + 1}</span>
               </div>
             </div>
           ))}

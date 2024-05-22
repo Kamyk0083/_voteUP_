@@ -44,7 +44,7 @@ export default function Game() {
                 {game.opis}
               </p>
               <Link
-                href={game.strona}
+                href={`//${game.strona}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:text-blue-700 block mt-2"
